@@ -1,9 +1,9 @@
 package ads.esd;
 
 
-public class Main {
+public class App {
     static void main() {
-
+        
 
 
     }

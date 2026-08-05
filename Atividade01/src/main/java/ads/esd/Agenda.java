@@ -48,24 +48,54 @@ public class Agenda {
         }
     }
 
-    public String listarContatos(){
-        final StringBuilder sb = new StringBuilder("Lista de Contatos\'");
+    public String listarContatos(){        
         for (Contato c : contatos){
-            sb.append(c.toString());
+            System.out.println(c.getNome() + " - " + c.getTelefone());            
+        }        
+    }
+
+    public String buscarContato(Contato c){
+        for (Contato contato: contatos){
+            if(c.getNome().equalsIgnoreCase(contato.getNome())){
+                return this.contato;
+            }
+            if(c.getTelefone().equalsIgnoreCase(contato.getTelefone())){
+                return this.contato;
+            }
+        }        
+    }
+
+    public void atualizarContato (Contato c){
+        for (Contato contato: contatos){
+            if (c.getNome().equalsIgnoreCase(contato.getNome())) {
+                c.atualizarNome();
+                c.atualizarEmail();
+                c.atualizarTelefone();
+            }
         }
-        return sb.toString();
+    }
+   
+    public String buscarPrefixo(Contato c){
+        for (Contato contato : contatos){
+            if(contato.startsWith(c)){
+                return this.contato;
+            } else {
+                System.out.println("Contato não localizado!");
+            }
+        }
     }
 
-    public String buscarContato(Contato nome){
-        return nome.toString() ;
+    public void adicoinarEmLote(Contato[] novosContatos){
+        if (this.tamanho + novosContatos.length > this.contatos.length) {
+            System.out.println("Não há espaço suficente na agenda!");
+            return;
+        }
+        for (int i = 0; i > novosContatos.length; i++) {
+            this.contatos[this.tamanho] = novosContatos[i];
+            this.tamanho++;
+        }
+
     }
-
-    public String buscarContato(Contato telefone){
-        
-    }
-
-
-
 
 
 
