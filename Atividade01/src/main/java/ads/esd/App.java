@@ -2,7 +2,7 @@ package ads.esd;
 import java.util.Scanner;
 
 
-public class Main {
+public class App {
     
     public static void main(String[] args) {
     
@@ -18,31 +18,33 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    agenda.adicionarContato(Contato c);
+                    Contato c = new Contato(IO.readln("Entre com o nome:"), IO.readln("Entre com o telefone: "));
+                    agenda.adicionarContato(c);
                     break;
 
                 case 2:
-                    agenda.removerContato(Contato c);
+
+                    agenda.removerContato(IO.readln("Entre com o nome a ser removido: "));
                     break;
 
                 case 3:
-                    agenda.buscarContato(Contato c);
+                    agenda.buscarContato(IO.readln("Entre com o nome a ser buscado: "));
                     break;
 
-                case 4:
-                    agenda.atualizarContato(Contato c);
-                    break;
+//                case 4:
+//                    agenda.atualizarContato();
+//                    break;
 
                 case 5:
-                    agenda.listarContatos(Contato c);
+                    agenda.listarContatos();
                     break;
 
-                case 6:
-                    agenda.adicionarEmLote(Contato[] novosContatos);
-                    break;
+//                case 6:
+//                    agenda.adicionarEmLote();
+//                    break;
 
                 case 7:
-                    agenda.buscarPrefixo(Contato c);
+                    agenda.buscarPrefixo(IO.readln("Entre com o prefixo: "));
                     break;
 
                 case 0:
@@ -71,6 +73,9 @@ public class Main {
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opção: ");
     }
+
+
+
 
     
 }
