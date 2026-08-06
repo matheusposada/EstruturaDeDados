@@ -40,15 +40,25 @@ public class Agenda {
     }
 
 
-    public void removerContato(Contato c) {
+   public void removerContato(Contato c) {
+        boolean encontrado = false;
+    
         for (int i = 0; i < tamanho; i++) {
-            if (contatos[i].equals(c)){
+            if (contatos[i].getNome().equalsIgnoreCase(c.getNome())) {
                 remover(i);
-            } else System.out.println("Contato inexistente!");
+                encontrado = true;
+                break; 
+            }
+        }
+    
+        if (!encontrado) {
+            System.out.println("Contato inexistente!");
         }
     }
+        
+        
 
-    public String listarContatos(){        
+    public void listarContatos(){        
         for (Contato c : contatos){
             System.out.println(c.getNome() + " - " + c.getTelefone());            
         }        
@@ -57,35 +67,39 @@ public class Agenda {
     public String buscarContato(Contato c){
         for (Contato contato: contatos){
             if(c.getNome().equalsIgnoreCase(contato.getNome())){
-                return this.contato;
+                return contato;
             }
             if(c.getTelefone().equalsIgnoreCase(contato.getTelefone())){
-                return this.contato;
+                return contato;
             }
-        }        
+        } 
+        return "Contato não localizado!";       
     }
 
     public void atualizarContato (Contato c){
         for (Contato contato: contatos){
             if (c.getNome().equalsIgnoreCase(contato.getNome())) {
-                c.atualizarNome();
-                c.atualizarEmail();
-                c.atualizarTelefone();
+                contato.atualizarNome(c.getNome());
+                contato.atualizarEmail(c.getEmail());
+                contato.atualizarTelefone(c.getTelefone());
             }
         }
     }
    
-    public String buscarPrefixo(Contato c){
+    public String buscarPrefixo(String prefixo){
         for (Contato contato : contatos){
-            if(contato.startsWith(c)){
-                return this.contato;
-            } else {
-                System.out.println("Contato não localizado!");
-            }
+            if(contato != null && contato.getNome().startsWith(prefixo)){
+                resultado.append(contato.toString()).append("\n");
+            } 
+        }
+        if (resultado.length() == 0) {
+            return "Nenhum contato encontrado com o prefixo: " + prefixo;
+        } else {
+            return resultado.toString();
         }
     }
 
-    public void adicoinarEmLote(Contato[] novosContatos){
+    public void adicionarEmLote(Contato[] novosContatos){
         if (this.tamanho + novosContatos.length > this.contatos.length) {
             System.out.println("Não há espaço suficente na agenda!");
             return;
