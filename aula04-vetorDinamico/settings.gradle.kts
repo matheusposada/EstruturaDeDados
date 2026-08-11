@@ -1,0 +1,1 @@
+rootProject.name = "aula04-vetorDinamico"
