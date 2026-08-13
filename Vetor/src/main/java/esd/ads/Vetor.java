@@ -1,18 +1,19 @@
-package ads.esd;
+package esd.ads;
 
-public class VetorDinamico<T> {
+public class Vetor<T>{
+
     private T[] elementos;
     private int tamanho;
 
 
     @SuppressWarnings("unchecked")
-    public VetorDinamico(int quantidade) {
+    public Vetor(int quantidade){
         elementos = (T[]) new Object[quantidade];
         tamanho = 0;
     }
 
-    public void inserir(T elemento) {
-        if (tamanho == elementos.length) {
+    public void inserir(T elemento){
+        if(tamanho == elementos.length){
             expandir();
         }
         elementos[tamanho] = elemento;
@@ -20,19 +21,19 @@ public class VetorDinamico<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private void expandir() {
+    private void expandir(){
         T[] novo = (T[]) new Object[elementos.length * 2];
-        for (int i = 0; i < elementos.length; i++) {
+        for(int i = 0; i < elementos.length; i++){
             novo[i] = elementos[i];
         }
         elementos = novo;
     }
 
-    public void imprimir() {
+    public void imprimir(){
         System.out.print("[");
         for (int i = 0; i < elementos.length; i++) {
             System.out.print(elementos[i]);
-            if (i < elementos.length - 1) {
+            if (i < elementos.length -1) {
                 System.out.print(", ");
             }
         }
@@ -40,11 +41,11 @@ public class VetorDinamico<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private void reduzir() {
+    private void reduzir(){
 
-        if (tamanho <= elementos.length / 4) {
-            T[] novo = (T[]) new Object[elementos.length / 2];
-            for (int i = 0; i < tamanho; i++) {
+        if (tamanho <= elementos.length/4) {
+            T[] novo = (T[])new Object[elementos.length/2];
+            for (int i = 0; i< tamanho; i++){
                 novo[i] = elementos[i];
             }
             elementos = novo;
@@ -52,18 +53,20 @@ public class VetorDinamico<T> {
 
     }
 
-    public void remover(int indice) {
+    public void remover(int indice){
         if (indice < 0 || indice >= tamanho) {
             System.out.println("Indice Inválido");
             return;
         }
-        for (int i = indice; i < tamanho; i++) {
-            elementos[i] = elementos[i + 1];
+        for (int i = indice; i < tamanho; i++){
+            elementos[i] = elementos[i+1];
         }
 
-        elementos[tamanho - 1] = null;
+        elementos[tamanho-1] = null;
         tamanho--;
         reduzir();
 
     }
+
+
 }
