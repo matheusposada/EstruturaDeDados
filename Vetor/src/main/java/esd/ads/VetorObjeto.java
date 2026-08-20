@@ -1,6 +1,6 @@
 package esd.ads;
 
-public class VetorObjeto {
+public class VetorObjeto<T> {
 
     private Object[] elementos;
     private int tamanho;
@@ -19,7 +19,12 @@ public class VetorObjeto {
         tamanho++;
     }
 
-    public Object ler(int indice){
-        return elementos[indice];
+    @SuppressWarnings("Unchecked")
+    public T ler(int indice) {
+        if (indice >= 0 && indice < tamanho) {
+            return (T) elementos[indice];
+        } else {
+            throw new IndexOutOfBoundsException("Indice inválido");
+        }
     }
 }
