@@ -2,7 +2,7 @@ package esd.ads;
 
 import java.util.Random;
 
-public class Vetor<T> {
+public class Vetor<T extends Comparable<T>> {
 
     private T[] elementos;
     private int tamanho;
@@ -149,8 +149,7 @@ public class Vetor<T> {
         }
         int i;
         for (i = tamanho - 1; i >= 0; i--) {
-            Integer atual = (Integer) elementos[i];
-            if (atual > (Integer) valor) {
+            if (elementos[i].compareTo(valor) > 0) {
                 elementos[i + 1] = elementos[i]; // desloca para a direita
             } else {
                 break;

@@ -3,7 +3,7 @@ package esd.ads;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class Produto {
+public class Produto implements Comparable<Produto>{
 
     private int id;
     private String nome;
@@ -60,5 +60,10 @@ public class Produto {
         sb.append(", preco=").append(preco);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int compareTo(Produto outro) {
+        return Double.compare(this.preco, outro.preco);
     }
 }
