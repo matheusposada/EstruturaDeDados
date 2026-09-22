@@ -69,13 +69,74 @@ public class Labirinto {
     }
 
 
+    private boolean posicaoValida(int linha, int coluna, boolean[][] visitado) {
+        if (linha < 0 || linha >= mapa.length) return false;
+        if (coluna < 0 || coluna >= mapa[linha].length) return false;
+        if (mapa[linha][coluna] == '*') return false;
+        if (visitado[linha][coluna]) return false;
+        return true;
+    }
 
 
+    private void marcarCaminho(Posicao destino) {
+        Posicao atual = destino.anterior;
+        while (atual != null && mapa[atual.linha][atual.coluna] == ' ') {
+            mapa[atual.linha][atual.coluna] = '+';
+            atual = atual.anterior;
+        }
+    }
 
 
+    public boolean resolver() {
+        boolean[][] visitado = new boolean[mapa.length][mapa[0].length];
+
+        Pilha pilha = new Pilha();
+        pilha.empilhar(new Posicao(linhaInicial, colunaInicial, null));
+
+        int[] direcaoLinha = {-1, 1, 0, 0};
+        int[] direcaoColuna = {0, 0, -1, 1};
+
+        while (!pilha.estaVazia()) {
+            Posicao atual = pilha.desempilhar();
+
+            if (mapa[atual.linha][atual.coluna] == 'T') {
+                marcarCaminho(atual);
+                return true;
+            }
+
+            if (!visitado[atual.linha][atual.coluna]) {
+                visitado[atual.linha][atual.coluna] = true;
+
+                for (int d = 0; d < 4; d++) {
+                    int novaLinha = atual.linha + direcaoLinha[d];
+                    int novaColuna = atual.coluna + direcaoColuna[d];
+
+                    if (posicaoValida(novaLinha, novaColuna, visitado)) {
+                        pilha.empilhar(new Posicao(novaLinha, novaColuna, atual));
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 
     public static void main(String[] args) {
         Labirinto labirinto = new Labirinto();
+
+        System.out.println("Labirinto original:");
+        labirinto.imprimir();
+
+        boolean encontrou = labirinto.resolver();
+
+        System.out.println();
+        if (encontrou) {
+            System.out.println("Caminho encontrado!");
+        } else {
+            System.out.println("Nenhum caminho encontrado.");
+        }
+
+        System.out.println();
         labirinto.imprimir();
     }
 }

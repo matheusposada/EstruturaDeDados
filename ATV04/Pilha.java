@@ -1,6 +1,5 @@
 package atividade;
 
-
 public class Pilha {
 
     private No topo;
